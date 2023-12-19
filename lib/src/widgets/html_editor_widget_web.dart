@@ -491,6 +491,7 @@ class _HtmlEditorWidgetWebState extends State<HtmlEditorWidget> {
         var jsonStr = jsonEncoder.convert(data);
         var jsonStr2 = jsonEncoder.convert(data2);
         html.window.onMessage.listen((event) {
+          if(!mounted) return;
           var data = json.decode(event.data);
           if (data['type'] != null &&
               data['type'].contains('toDart: htmlHeight') &&
@@ -686,6 +687,7 @@ class _HtmlEditorWidgetWebState extends State<HtmlEditorWidget> {
   /// Adds an event listener to check when a callback is fired
   void addJSListener(Callbacks c) {
     html.window.onMessage.listen((event) {
+      if(!mounted) return;
       var data = json.decode(event.data);
       if (data['type'] != null &&
           data['type'].contains('toDart:') &&
